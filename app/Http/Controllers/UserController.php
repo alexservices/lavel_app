@@ -47,9 +47,14 @@ $this->middleware('admin');
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserCreateRequest $request)
+    public function store(Request $request)
     {
-        User::create($request->all());
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+        /* User::create($request->all()); */
         Session::flash('message','User has been created succesfully');
         return redirect('/user');
     }

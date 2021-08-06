@@ -107,7 +107,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             
-            @if(Auth::user()->id ==11)
+            @if(Auth::user()->id ==9)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
@@ -139,7 +139,7 @@
                 </div>
             </li>
             
-            @if(Auth::user()->id==11)
+            @if(Auth::user()->id==9)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGenre"
                     aria-expanded="true" aria-controls="collapseGenre">

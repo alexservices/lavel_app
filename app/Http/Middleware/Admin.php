@@ -21,7 +21,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if($this->auth->user()->id != 11){
+        if($this->auth->user()->id != 9){
             Session::flash('message-error','Insufficient priviliges');
             return redirect()->to('admin');
         }
