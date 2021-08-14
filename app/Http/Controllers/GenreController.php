@@ -6,6 +6,11 @@ use App\Http\Requests\GenreRequest;
 use App\Models\Genre;
 class GenreController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware(middleware: 'auth');
+        $this->middleware('admin'); 
+    } 
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +32,7 @@ class GenreController extends Controller
      * @return \Illuminate\Http\Response
      */
   
-    public function store(Request $request)
+    public function store(GenreRequest $request)
     {
         $genre   =   Genre::updateOrCreate(
                     [

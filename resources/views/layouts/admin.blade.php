@@ -23,7 +23,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/admin') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Cinea Admin') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -80,7 +80,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('index.home')}}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -106,8 +106,11 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            
-            @if(Auth::user()->id ==11)
+            @guest
+            @if (Route::has('register'))
+             @endif
+            @else
+            @if(Auth::user()->id ==9)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
@@ -123,7 +126,6 @@
                     </div>
                 </div>
             </li>
-            @endif
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMovie"
@@ -133,13 +135,11 @@
                 </a>
                 <div id="collapseMovie" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Add Movies</a>
-                        <a class="collapse-item" href="cards.html">Show Movies</a>
+                        <a class="collapse-item" href="{{route('movie.create')}}">Add Movies</a>
+                        <a class="collapse-item" href="{{route('movie.index')}}">Show Movies</a>
                     </div>
                 </div>
             </li>
-            
-            @if(Auth::user()->id==11)
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGenre"
                     aria-expanded="true" aria-controls="collapseGenre">
@@ -152,7 +152,8 @@
                     </div>
                 </div>
             </li>
-            @endif
+           @endif
+           @endguest
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Divider -->

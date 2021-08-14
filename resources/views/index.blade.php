@@ -5,7 +5,16 @@
 			<div class="top-header">
 				<div class="logo">
 					<a href="{{route('index.home')}}"><img src="{{asset('images/logo.png')}}" alt="" /></a>
-					<p>Movie Theater</p>
+					<p>Cinema</p>
+					<html>
+@guest
+@if (Route::has('register'))
+@endif
+@else
+@if(Auth::user()->id==9)
+<a href="{{route('admin.index')}}" class="btn btn-primary" role="button" >Admin Dashboard</a>
+@endif
+@endguest
 				</div>
 				<div class="search">
 					<form>
@@ -29,6 +38,7 @@
 		</div>
 		<div class="review-slider">
 			 <ul id="flexiselDemo1">
+			
 			<li><img src="{{asset('images/r1.jpg')}}" alt=""/></li>
 			<li><img src="{{asset('images/r2.jpg')}}" alt=""/></li>
 			<li><img src="{{asset('images/r3.jpg')}}" alt=""/></li>
@@ -66,7 +76,7 @@
 		<script type="text/javascript" src="js/jquery.flexisel.js"></script>	
 		</div>
 		<div class="video">
-			<iframe  src="https://www.youtube.com/embed/Mm3_6LJQd7M" frameborder="0" allowfullscreen></iframe>
+			<iframe  src="" frameborder="0" allowfullscreen></iframe>
 		</div>
 		<div class="news">
 			<div class="col-md-6 news-left-grid">
@@ -88,7 +98,6 @@
 					<label>Nov 11 2014</label>
 					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
 				</div>
-				<a class="more" href="#">MORE</a>
 			</div>
 			<div class="clearfix"></div>
 		</div>

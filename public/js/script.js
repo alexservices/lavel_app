@@ -73,7 +73,15 @@ $(document).ready(function($){
              window.location.reload();
             $("#btn-save").html('Submit');
             $("#btn-save"). attr("disabled", false);
+           },
+           error:function(msj){
+           console.log(msj.responseJSON.errors.genre);
+           $("#msj").html(msj.responseJSON.errors.genre);
+           $("#msj-error").fadeIn();
+           $("#btn-save"). attr("disabled", false);
+           $("#btn-save").html('Save changes');
            }
+
         });
   
     });

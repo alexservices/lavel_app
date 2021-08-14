@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Movie;
 
 class FrontController extends Controller
 {
@@ -13,6 +14,7 @@ $this->middleware('auth', ['only'=>'admin','contact','reviews']);
 
     public function index()
     {
+        
         return view('index');
     }
 
@@ -24,7 +26,8 @@ $this->middleware('auth', ['only'=>'admin','contact','reviews']);
 
     public function reviews()
     {
-        return view('reviews');
+    $movies = Movie::Movies();
+    return view('reviews',compact('movies'));
     }
 
     public function admin()

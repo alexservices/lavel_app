@@ -5,6 +5,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="ajaxGenreModel"></h4>
+            <div id="msj-error" class="alert alert-danger alert-dismissible" style="display:none">
+        <strong id="msj"> </strong>
+    </div>
           </div>
           <div class="modal-body">
             <form action="javascript:void(0)" id="addEditGenreForm" name="addEditGenreForm" class="form-horizontal" method="POST">

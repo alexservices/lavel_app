@@ -71,3 +71,5 @@ Route::get('genre', [GenreController::class, 'index'])->name('genre.index');
 Route::post('add-update-genre', [GenreController::class, 'store']);
 Route::post('edit-genre', [GenreController::class, 'edit']);
 Route::post('delete-genre', [GenreController::class, 'destroy']);
+
+Route::resource('movie',MovieController::class);

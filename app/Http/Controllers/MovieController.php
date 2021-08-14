@@ -3,17 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Genre;
+use App\Models\Movie;
+use Session;
+use Redirect;
+use Illuminate\Routing\Route;
+use App\Http\Requests\MovieCreateRequest;
+use App\Http\Requests\MovieUpdateRequest;
 
 class MovieController extends Controller
 {
-    /**
+   
+    public function __construct(){
+        $this->middleware(middleware: 'auth');
+        $this->middleware('admin'); 
+    } 
+        
+ /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return "Estoy en el index";    
+        /* return "Estoy en el index";   */  
+        $movies = Movie::Movies();
+        $movies = Movie::simplepaginate(2);
+        return view('movie.index',compact('movies'));
+
     }
 
     /**
@@ -23,7 +41,9 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return "Estoy en create";
+        /* return "Estoy en create"; */
+        $genres = Genre::pluck('genre', 'id');
+        return view('movie.create',compact('genres'));
     }
 
     /**
@@ -32,9 +52,11 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MovieCreateRequest $request)
     {
-        //
+        Movie::create($request->all());
+        Session::flash('message','Movie has been created succesfully');
+        return redirect('/movie');
     }
 
     /**
@@ -56,7 +78,9 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        //
+        $movie= Movie::find($id);
+        $genres = Genre::pluck('genre', 'id');
+        return view('movie.edit',['movie'=>$movie,'genres'=>$genres]);
     }
 
     /**
@@ -66,9 +90,14 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MovieUpdateRequest $request, $id)
     {
-        //
+        $movie= Movie::find($id);
+        $movie->fill($request->all());
+        $movie->save();
+
+        Session::flash('message','Movie has been edited successfully');
+        return Redirect::to('/movie');
     }
 
     /**
@@ -79,6 +108,10 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movie= Movie::find($id);
+        $movie->delete();
+        \Storage::delete($movie->path);
+        Session::flash('message','Movie has been deleted successfully');
+        return Redirect::to('/movie');
     }
 }

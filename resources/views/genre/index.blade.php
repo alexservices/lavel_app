@@ -47,7 +47,7 @@
 @include('genre.bootstrap-model')
 </body>
 </html>
-@endsection	
+@endsection
 @section('scripts')
 {!!Html::script('js/script.js')!!}
 @endsection

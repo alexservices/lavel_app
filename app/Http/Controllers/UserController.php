@@ -49,7 +49,11 @@ $this->middleware('admin');
      */
     public function store(UserCreateRequest $request)
     {
-        User::create($request->all());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Hash::make($request->password)
+        ]);
         Session::flash('message','User has been created succesfully');
         return redirect('/user');
     }
