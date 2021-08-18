@@ -6,6 +6,9 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,7 +49,6 @@ Route::get('/', function () {
 
 Route::resource('movie', MovieController::class);
 
-
  */
 
  /* Route::get('admin',[FrontController::class,'admin'])
@@ -61,15 +63,18 @@ Route::get('contact', [FrontController::class,'contact'])
 Route::get('reviews', [FrontController::class,'reviews'])
 ->name('reviews.movie');
 
-Route::get('admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index'); 
-
-Route::resource('user',UserController::class);
-
 Auth::routes();
 
-Route::get('genre', [GenreController::class, 'index'])->name('genre.index');
-Route::post('add-update-genre', [GenreController::class, 'store']);
-Route::post('edit-genre', [GenreController::class, 'edit']);
-Route::post('delete-genre', [GenreController::class, 'destroy']);
-
-Route::resource('movie',MovieController::class);
+    Route::resource('user',UserController::class);
+    Route::get('admin', [AdminController::class, 'index'])->name('admin.index'); 
+    Route::get('genre', [GenreController::class, 'index'])->name('genre.index');
+    Route::post('add-update-genre', [GenreController::class, 'store']);
+    Route::post('edit-genre', [GenreController::class, 'edit']);
+    Route::post('delete-genre', [GenreController::class, 'destroy']);
+    Route::resource('movie',MovieController::class);
+    Route::resource('mail',MailController::class);
+    
+    Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+    Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+    Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+    Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
